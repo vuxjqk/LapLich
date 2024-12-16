@@ -1,0 +1,66 @@
+﻿@using LapLich.Models
+@{
+    ViewBag.Title = "DaysOff";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Chọn Ngày Nghỉ Của Bác Sĩ";
+}
+
+@{
+    var doctor = ViewBag.Doctor as Doctor;
+}
+
+<div class="flex items-center space-x-2">
+    @{
+        int index = doctor.DoctorID;
+
+        // Nút Trở về
+        if (index > 1)
+        {
+            var prevIndex = index - 1;
+            <a href="@Url.Action("DaysOff", "Admin", new { doctorId = prevIndex })"
+               class="bg-blue-300 text-gray-800 py-1 px-3 rounded text-sm hover:bg-blue-400 transition duration-200">
+                < Trở về
+            </a>
+        }
+        else
+        {
+            <span class="bg-gray-300 text-gray-600 py-1 px-3 rounded text-sm"> < Trở về </span>
+        }
+
+        <h3 class="text-2xl font-semibold mb-4 mt-4">@doctor.DoctorName</h3>
+
+        // Nút Tiếp
+        if (index < 30)
+        {
+            var nextIndex = index + 1;  // Lưu giá trị tuần tiếp theo
+            <a href="@Url.Action("DaysOff", "Admin", new { doctorId = nextIndex })"
+               class="bg-blue-300 text-gray-800 py-1 px-3 rounded text-sm hover:bg-blue-400 transition duration-200">
+                Tiếp >
+            </a>
+        }
+        else
+        {
+            <span class="bg-gray-300 text-gray-600 py-1 px-3 rounded text-sm"> Tiếp > </span>
+        }
+    }
+</div>
+
+    <form action="@Url.Action("SaveDaysOff")" method="post">
+        <input type="hidden" name="doctorId" value="@doctor.DoctorID" />
+
+        <h4>Chọn ngày nghỉ</h4>
+        @foreach (var day in ViewBag.Days as List<Day>)
+        {
+            <div>
+                <label>
+                    <input type="checkbox" name="selectedDays" value="@day.DayID" />
+                    @day.Date.ToShortDateString()
+                </label>
+            </div>
+        }
+        <button type="submit"  class="bg-blue-600 text-white rounded p-2 hover:bg-blue-700 transition">Lưu Ngày Nghỉ</button>
+    </form>
+    <hr />

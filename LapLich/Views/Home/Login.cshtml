@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<style>
+    .login {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #f0f4ff, #c9e8ff);
+    }
+
+    .form-atri {
+        padding: 40px;
+        width: 400px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        text-align: center;
+    }
+
+    h1 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    label {
+        color: #34495e;
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    .input-group {
+        position: relative;
+        margin-bottom: 1rem;
+    }
+
+        .input-group i {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #bdc3c7;
+            font-size: 1.2rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 10px 10px 40px;
+            border: 1px solid #bdc3c7;
+            border-radius: 8px;
+            background: #f5f5f5;
+            transition: border-color 0.3s, background-color 0.3s;
+            font-size: 0.95rem;
+        }
+
+            .input-group input:focus {
+                border-color: #3498db;
+                background: #e9f4fc;
+                outline: none;
+            }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+        border-radius: 8px;
+        background-color: #27ae60;
+        color: white;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        button:hover {
+            background-color: #219150;
+        }
+
+    .forgot-password, .register-link {
+        color: #3498db;
+        transition: color 0.3s;
+        font-size: 0.9rem;
+    }
+
+        .forgot-password:hover, .register-link:hover {
+            color: #2980b9;
+        }
+</style>
+<body>
+    <div class="login">
+        <form action="/Home/Login" method="POST" class="form-atri">
+            <h1 class="text-2xl font-bold">Đăng Nhập Tài Khoản</h1>
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" name="username" id="username" autocomplete="username"
+                       placeholder="Tên đăng nhập" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" id="password" autocomplete="current-password"
+                       placeholder="••••••••" required>
+            </div>
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-start">
+                    <input id="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300">
+                    <label for="remember" class="ml-2 text-sm text-gray-500">Nhớ cho lần sau</label>
+                </div>
+                <a href="#" class="forgot-password">Quên mật khẩu?</a>
+            </div>
+            <button type="submit">Đăng Nhập</button>
+            <div class="register-link mt-4">Bạn chưa có tài khoản? <a href="#">Đăng ký ngay</a></div>
+        </form>
+    </div>
+</body>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<LapLich.Models.Schedule>
+
+@{
+    ViewBag.Title = "DoctorSchedule";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mx-auto mt-4">
+    <a class="bg-blue-600 text-white rounded p-2 hover:bg-blue-700 transition" href="/Admin/_DoctorSchedule">Bắt đầu lập lịch</a>
+</div>
+
+<!-- Phần bảng lịch trình -->
+<div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-300 shadow-md rounded-lg">
+        <thead>
+            <tr>
+                <th class="px-2 py-2 bg-blue-200 text-gray-800 border border-gray-400" style="width: 80px;">Ca Trực</th>
+                @foreach (var item in Model.Select(s => s.Room).Distinct())
+                {
+                    <th class="px-4 py-2 bg-blue-200 text-gray-800 border border-gray-400" style="width: 120px;">@item.RoomName</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var day in Model.Select(s => s.Day).Distinct().OrderBy(d => d.Date))
+            {
+                <tr class="border-b hover:bg-gray-200">
+                    <td class="px-2 py-2 font-medium text-center border border-gray-400 bg-yellow-100" style="width: 80px;">
+                        @day.Date.ToString("dd/MM/yyyy")
+                    </td>
+                    @foreach (var room in Model.Select(s => s.Room).Distinct())
+                    {
+                        var schedule = Model.FirstOrDefault(s => s.Room == room && s.Day == day);
+                        <td class="px-4 py-2 text-center border border-gray-300" style="height: 100px; width: 120px;">
+                            <div class="p-2 border border-gray-300 bg-green-200 rounded-md">
+                                <p class="text-sm font-semibold text-gray-800">@(schedule != null ? schedule.Doctor.DoctorName : "No Doctor Assigned")</p>
+                            </div>
+                            <p class="text-gray-400"></p>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

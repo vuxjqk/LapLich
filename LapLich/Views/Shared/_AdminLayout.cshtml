@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        body::-webkit-s crollbar-track {
+            background: rgba(240, 240, 240, 0.5);
+            border-radius: 10px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: #34495e;
+            border-radius: 10px;
+            border: 2px solid rgba(240, 240, 240, 0.5);
+            transition: background-color 0.3s ease;
+        }
+
+            body::-webkit-scrollbar-thumb:hover {
+                background-color: #2c3e50;
+            }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+            margin: 0;
+        }
+
+        .main-content {
+            background-color: rgb(246, 245, 254);
+            padding: 20px;
+            margin-left: 250px;
+            transition: margin-left 0.3s;
+        }
+
+        .nav-bar {
+            background-color: #2c3e50;
+            color: white;
+            width: 250px;
+            height: 100vh;
+            transition: width 0.3s ease;
+            position: fixed;
+            overflow-y: auto;
+        }
+
+            .nav-bar.collapsed {
+                width: 60px;
+            }
+
+            .nav-bar a {
+                color: white;
+                text-decoration: none;
+            }
+
+        .element-navbar div {
+            position: relative;
+            transition: background-color 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+            .element-navbar div:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+
+        .element-navbar a:hover {
+            color: #1abc9c;
+        }
+
+        .nav-bar.collapsed .element-navbar div {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+            .nav-bar.collapsed .element-navbar div a {
+                display: none;
+            }
+
+        .nav-bar.collapsed i {
+            margin: 0;
+            display: block;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 0;
+            background-color: #34495e;
+            color: white;
+            font-weight: bold;
+        }
+
+            .title i {
+                margin-right: 10px;
+            }
+
+        .nav-bar.collapsed .title h2 {
+            display: none;
+        }
+
+        .nav-bar.collapsed .title i {
+            margin: 0;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+            padding: 10px 16px;
+            margin: 20px auto;
+            border-radius: 6px;
+            background-color: #e74c3c;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            text-decoration: none;
+        }
+
+            .logout-btn a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                color: white;
+                text-decoration: none;
+            }
+
+            .logout-btn:hover {
+                background-color: #c0392b;
+            }
+
+        .nav-bar.collapsed .logout-btn span {
+            display: none;
+        }
+
+        .header {
+            background-color: #34495e;
+            border-bottom: 1px solid #ddd;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: 60px;
+        }
+
+            .header h1 {
+                color: #ecf0f1;
+            }
+
+        #toggleButton {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex">
+        <div class="nav-bar" id="sidebar">
+            <div class="title">
+                <i class="fa-solid fa-user-shield"></i>
+                <h2 class="text-3xl">Admin</h2>
+            </div>
+            <hr class="my-2">
+            <nav class="element-navbar pt-4">
+                <div>
+                    <i class="mr-3 fa-solid fa-home"></i><a href="/Admin/Index">Trang Chủ</a>
+                </div>
+                <div>
+                    <i class="mr-3 fa-solid fa-calendar-days"></i><a href="/Admin/Create">Tạo Lịch</a>
+                </div>
+                <div>
+                    <i class="mr-3 fa-solid fa-users"></i><a href="/Admin/Rooms">Quản Lý Phòng</a>
+                </div>
+                <div>
+                    <i class="mr-3 fa-solid fa-clock-rotate-left"></i><a href="/Admin/DoctorSchedule">Quản Lý Lịch</a>
+                </div>
+                <div>
+                    <i class="mr-3 fa-solid fa-message"></i><a href="#">Tin Nhắn</a>
+                </div>
+            </nav>
+            <div class="logout-btn">
+                <a href="/Home/Logout" class="flex items-center space-x-2">
+                    <span>Đăng Xuất</span>
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+        <div class="main-content w-full" id="content">
+            <div class="header">
+                <div class="flex items-center">
+                    <i id="toggleButton" class="fa-solid fa-bars pr-2 fa-lg cursor-pointer"></i>
+                    <h1 class="text-2xl font-semibold">Menu</h1>
+                </div>
+            </div>
+            <main>
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('toggleButton').addEventListener('click', function () {
+            const sidebar = document.getElementById('sidebar');
+            const icon = document.getElementById('toggleButton');
+
+            sidebar.classList.toggle('collapsed');
+
+            if (sidebar.classList.contains('collapsed')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-chevron-right');
+            } else {
+                icon.classList.remove('fa-chevron-right');
+                icon.classList.add('fa-bars');
+            }
+
+            const content = document.getElementById('content');
+            content.style.marginLeft = sidebar.classList.contains('collapsed') ? '60px' : '250px';
+        });
+    </script>
+</body>
+
+</html>

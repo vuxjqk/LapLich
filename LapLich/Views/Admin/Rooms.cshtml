@@ -1,0 +1,149 @@
+﻿@model IEnumerable<LapLich.Models.Room>
+
+@{
+    ViewBag.Title = "Rooms";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .flex-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .search-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+        .search-container input,
+        .search-container select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.875rem;
+        }
+
+        .search-container select {
+            margin-left: 10px;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #489cb8;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #d1ecf1;
+    }
+
+    .action-btns {
+        display: flex;
+        gap: 10px;
+    }
+
+    .action-btn {
+        padding: 6px 10px;
+        border-radius: 5px;
+        background-color: #cfe2f3;
+        color: #333;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+        .action-btn:hover {
+            background-color: #a0c4e0;
+        }
+
+        .action-btn i {
+            margin-right: 5px;
+        }
+</style>
+
+<div class="flex-container">
+    <div class="search-container">
+        <select id="department-dropdown" onchange="filterResults()">
+            <option value="">Chọn Phòng</option>
+            @foreach (var item in Model)
+            {
+                <option value="@item.RoomID">@item.RoomName</option>
+            }
+        </select>
+        <input type="text" id="search-input" placeholder="Tìm kiếm theo Tên hoặc Mã Phòng..." onkeyup="filterResults()">
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Mã Phòng</th>
+                    <th>Tên Phòng</th>
+                    <th>Hành Động</th>
+                </tr>
+            </thead>
+            <tbody id="department-table-body">
+                @foreach (var item in Model)
+                {
+                    <tr data-department-id="@item.RoomID">
+                        <td>@item.RoomID</td>
+                        <td>@item.RoomName</td>
+                        <td>
+                            <div class="action-btns">
+                                <a href="#" class="action-btn"><i class="fa-solid fa-eye"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function filterResults() {
+        const dropdown = document.getElementById('department-dropdown');
+        const selectedDepartment = dropdown.value;
+        const input = document.getElementById('search-input');
+        const filter = input.value.toLowerCase();
+        const tableBody = document.getElementById('department-table-body');
+        const rows = tableBody.getElementsByTagName('tr');
+
+        for (let i = 0; i < rows.length; i++) {
+            const departmentId = rows[i].getAttribute('data-department-id');
+            const cells = rows[i].getElementsByTagName('td');
+            const roomIdValue = cells[0].textContent || cells[0].innerText;
+            const roomTypeValue = cells[1].textContent || cells[1].innerText;
+
+            // Kiểm tra điều kiện hiển thị hàng
+            const matchesDepartment = selectedDepartment === "" || departmentId === selectedDepartment;
+            const matchesSearch = roomIdValue.toLowerCase().includes(filter) || roomTypeValue.toLowerCase().includes(filter);
+
+            // Hiển thị hàng nếu cả hai điều kiện đều đúng
+            if (matchesDepartment && matchesSearch) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+</script>
