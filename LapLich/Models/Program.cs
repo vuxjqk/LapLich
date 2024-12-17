@@ -22,6 +22,33 @@ namespace LapLich.Models
             return days;
         }
 
+        static public DateTime GetStartOfWeek(DateTime date, int weekIndex)
+        {
+            var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+            var daysToFirstMonday = (int)DayOfWeek.Monday - (int)firstDayOfMonth.DayOfWeek;
+            if (daysToFirstMonday > 0)
+                daysToFirstMonday -= 7;
+
+            var firstMonday = firstDayOfMonth.AddDays(daysToFirstMonday);
+            var startOfWeek = firstMonday.AddDays((weekIndex - 1) * 7);
+
+            return startOfWeek;
+        }
+
+        static public int GetWeeksInMonth(DateTime date)
+        {
+            var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            var firstDayOfWeek = (int)firstDayOfMonth.DayOfWeek;
+            firstDayOfWeek = (firstDayOfWeek == 0) ? 7 : firstDayOfWeek;
+
+            int totalDaysInMonth = lastDayOfMonth.Day;
+            int weeksInMonth = (totalDaysInMonth + firstDayOfWeek - 1) / 7 + 1;
+
+            return weeksInMonth;
+        }
+
         public static void Main()
         {
             var days = CSVReader.ReadDays();

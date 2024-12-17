@@ -39,9 +39,27 @@ namespace LapLich.Controllers
             return View();
         }
 
-        public ActionResult DoctorSchedule()
+        public ActionResult DoctorSchedule(int weekIndex = 1)
         {
-            return View(CSVReader.ReadSchedule());
+            var schedule = CSVReader.ReadSchedule();
+            var date = schedule[0].Day.Date;
+
+            ViewBag.Year = date.Year;
+            ViewBag.Month = date.Month;
+            ViewBag.Week = weekIndex;
+            ViewBag.LastWeek = Program.GetWeeksInMonth(date);
+
+            // Lọc lịch bác sĩ cho tuần tương ứng
+            var startOfWeek = Program.GetStartOfWeek(date, weekIndex);
+            ViewBag.StartOfWeek = startOfWeek;
+
+            var endOfWeek = startOfWeek.AddDays(6);
+            var doctorScheduleForWeek = schedule
+                .Where(s => s.Day.Date >= startOfWeek && s.Day.Date <= endOfWeek)
+                .OrderBy(s => s.Day.Date)
+                .ToList();
+
+            return View(doctorScheduleForWeek);
         }
 
         public ActionResult _DoctorSchedule()

@@ -13,11 +13,12 @@ namespace LapLich.Models
         List<Day> days;
         int populationSize; // Kích thước của quần thể
         int generations; // Số lượng thế hệ
+        double cxpb; // Xác suất giao phối
         double mutpb; // Xác suất đột biến
         Random random;
 
         public GeneticAlgorithm(List<Doctor> doctors, List<Room> rooms, List<Day> days,
-                                int populationSize = 200, int generations = 2000, double mutpb = 0.2)
+                                int populationSize = 200, int generations = 2000, double mutpb = 0.2, double cxpb = 0.7)
         {
             this.doctors = doctors;
             this.rooms = rooms;
@@ -25,6 +26,7 @@ namespace LapLich.Models
             this.populationSize = populationSize;
             this.generations = generations;
             this.mutpb = mutpb;
+            this.cxpb = cxpb;
             random = new Random();
         }
 
@@ -138,15 +140,19 @@ namespace LapLich.Models
 
         public (List<Schedule>, List<Schedule>) Crossover(List<Schedule> parent1, List<Schedule> parent2) // Giao phối
         {
-            int cutPoint = random.Next(1, Math.Min(parent1.Count, parent2.Count));
+            if (random.NextDouble() < cxpb)
+            {
+                int cutPoint = random.Next(1, Math.Min(parent1.Count, parent2.Count));
 
-            List<Schedule> child1 = parent1.Take(cutPoint).ToList();
-            child1.AddRange(parent2.Skip(cutPoint));
+                List<Schedule> child1 = parent1.Take(cutPoint).ToList();
+                child1.AddRange(parent2.Skip(cutPoint));
 
-            List<Schedule> child2 = parent2.Take(cutPoint).ToList();
-            child2.AddRange(parent1.Skip(cutPoint));
+                List<Schedule> child2 = parent2.Take(cutPoint).ToList();
+                child2.AddRange(parent1.Skip(cutPoint));
 
-            return (child1, child2);
+                return (child1, child2);
+            }
+            return (parent1, parent2);
         }
 
         public List<Schedule> Mutate(List<Schedule> individual) // Đột biến
