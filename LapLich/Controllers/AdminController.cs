@@ -41,6 +41,10 @@ namespace LapLich.Controllers
 
         public ActionResult DoctorSchedule(int weekIndex = 1)
         {
+            var days = CSVReader.ReadDays();
+            ViewBag._Year = days[0].Date.Year;
+            ViewBag._Month = days[0].Date.Month;
+
             var schedule = CSVReader.ReadSchedule();
             var date = schedule[0].Day.Date;
 

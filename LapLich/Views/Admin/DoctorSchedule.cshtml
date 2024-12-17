@@ -6,7 +6,12 @@
 }
 
 <!-- Điều chỉnh tiêu đề và thông tin tuần/tháng -->
-<div class="flex justify-between items-center mb-4">
+<div class="flex justify-between items-center mb-4 mt-4">
+    <div>
+        Lập lịch cho tháng <span style="color: red; font-weight: bold">@ViewBag._Month/@ViewBag._Year</span>
+        <a class="bg-blue-600 text-white rounded p-2 hover:bg-blue-700 transition" href="/Admin/_DoctorSchedule">Run</a>
+    </div>
+
     <div>
         <p class="text-gray-600 text-lg">Tuần: @ViewBag.Week / Tháng @ViewBag.Month - @ViewBag.Year</p>
     </div>

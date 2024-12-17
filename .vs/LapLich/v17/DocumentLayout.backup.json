@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "D:\\TriTueNhanTao\\LapLich\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4112B914-898E-4000-87AE-F79D676C5E1E}|LapLich\\LapLich.csproj|d:\\trituenhantao\\laplich\\laplich\\views\\admin\\doctorschedule.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{4112B914-898E-4000-87AE-F79D676C5E1E}|LapLich\\LapLich.csproj|solutionrelative:laplich\\views\\admin\\doctorschedule.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{4112B914-898E-4000-87AE-F79D676C5E1E}|LapLich\\LapLich.csproj|d:\\trituenhantao\\laplich\\laplich\\views\\admin\\daysoff.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4112B914-898E-4000-87AE-F79D676C5E1E}|LapLich\\LapLich.csproj|solutionrelative:laplich\\views\\admin\\daysoff.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4112B914-898E-4000-87AE-F79D676C5E1E}|LapLich\\LapLich.csproj|d:\\trituenhantao\\laplich\\laplich\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4112B914-898E-4000-87AE-F79D676C5E1E}|LapLich\\LapLich.csproj|solutionrelative:laplich\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +23,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DoctorSchedule.cshtml",
-              "DocumentMoniker": "D:\\TriTueNhanTao\\LapLich\\LapLich\\Views\\Admin\\DoctorSchedule.cshtml",
-              "RelativeDocumentMoniker": "LapLich\\Views\\Admin\\DoctorSchedule.cshtml",
-              "ToolTip": "D:\\TriTueNhanTao\\LapLich\\LapLich\\Views\\Admin\\DoctorSchedule.cshtml",
-              "RelativeToolTip": "LapLich\\Views\\Admin\\DoctorSchedule.cshtml",
-              "ViewState": "AgIAADsAAAAAAAAAAAAmwEMAAAA3AAAAAAAAAA==",
+              "Title": "DaysOff.cshtml",
+              "DocumentMoniker": "D:\\TriTueNhanTao\\LapLich\\LapLich\\Views\\Admin\\DaysOff.cshtml",
+              "RelativeDocumentMoniker": "LapLich\\Views\\Admin\\DaysOff.cshtml",
+              "ToolTip": "D:\\TriTueNhanTao\\LapLich\\LapLich\\Views\\Admin\\DaysOff.cshtml",
+              "RelativeToolTip": "LapLich\\Views\\Admin\\DaysOff.cshtml",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAADYAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-17T02:10:39.581Z",
+              "WhenOpened": "2024-12-17T03:03:09.843Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "D:\\TriTueNhanTao\\LapLich\\LapLich\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "LapLich\\Controllers\\AdminController.cs",
+              "ToolTip": "D:\\TriTueNhanTao\\LapLich\\LapLich\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "LapLich\\Controllers\\AdminController.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAAAEoAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T02:49:06.702Z",
               "EditorCaption": ""
             }
           ]
