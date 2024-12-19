@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<LapLich.Models.Schedule>
+@using LapLich.Models
 
 @{
     ViewBag.Title = "DoctorSchedule";
@@ -100,7 +101,12 @@
                                 if (day == i)
                                 {
                                     <div class="p-2 border border-gray-300 bg-green-200 rounded-md">
-                                        <p class="text-sm font-semibold text-gray-800">@item.Doctor.DoctorName</p>
+                                        @{ 
+                                            Session["UserID"] = item.Doctor.DoctorID;
+                                            var users = CSVReader.ReadUsers();
+                                            Session["User"] = users.Find(u => u.UserID == item.Doctor.DoctorID);
+                                        }
+                                        <a class="text-sm font-semibold text-gray-800" href="/User/Index/@item.Doctor.DoctorID" target="_blank">@item.Doctor.DoctorName</a>
                                     </div>
                                 }
                                 else

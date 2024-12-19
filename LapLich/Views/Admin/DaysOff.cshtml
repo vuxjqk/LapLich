@@ -48,18 +48,23 @@
     }
 </div>
 
+<div class="w-50 m-auto">
     <form class="form-check" action="@Url.Action("SaveDaysOff")" method="post">
         <input type="hidden" name="doctorId" value="@doctor.DoctorID" />
 
-        <h4>Chọn ngày nghỉ</h4>
+        @{
+            var days = ViewBag.Days as List<Day>;
+        }
+        <p class="badge bg-danger">Chọn ngày nghỉ cho tháng @days[0].Date.ToString("MM/yyyy")</p>
         <div class="row row-cols-5">
-            @foreach (var day in ViewBag.Days as List<Day>)
+            @foreach (var day in days)
             {
                 <div class="col my-1">
                     <input class="form-check-input" id="@day.DayID" type="checkbox" name="selectedDays" value="@day.DayID" />
-                    <label class="form-check-label" for="@day.DayID">@day.Date.ToShortDateString()</label>
+                    <label class="form-check-label" for="@day.DayID">@day.DayID</label>
                 </div>
             }
         </div>
-        <button type="submit"  class="bg-blue-600 text-white rounded p-2 hover:bg-blue-700 transition mt-4">Lưu Ngày Nghỉ</button>
+        <button type="submit" class="bg-blue-600 text-white rounded p-2 hover:bg-blue-700 transition mt-4">Lưu Ngày Nghỉ</button>
     </form>
+</div>

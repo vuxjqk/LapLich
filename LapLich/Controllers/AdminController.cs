@@ -36,6 +36,7 @@ namespace LapLich.Controllers
                 dortor.DaysOff = new List<Day>();
 
             CSVReader.WriteDoctorsToCsv(doctors);
+            CSVReader.WriteScheduleToCsv(new List<Schedule>());
             return View();
         }
 
@@ -46,7 +47,7 @@ namespace LapLich.Controllers
             ViewBag._Month = days[0].Date.Month;
 
             var schedule = CSVReader.ReadSchedule();
-            var date = schedule[0].Day.Date;
+            var date = days[0].Date;
 
             ViewBag.Year = date.Year;
             ViewBag.Month = date.Month;
@@ -86,10 +87,12 @@ namespace LapLich.Controllers
             var doctor = doctors.FirstOrDefault(d => d.DoctorID == doctorId);
             if (doctor != null)
             {
+                if (selectedDays == null)
+                    selectedDays = new List<int>();
                 doctor.DaysOff = CSVReader.ReadDays().Where(d => selectedDays.Contains(d.DayID)).ToList();
                 CSVReader.WriteDoctorsToCsv(doctors);
             }
-            return RedirectToAction("DaysOff");
+            return RedirectToAction("DaysOff", "Admin", new { doctorId = doctorId });
         }
     }
 }
