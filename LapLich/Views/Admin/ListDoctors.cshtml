@@ -1,0 +1,17 @@
+﻿@model IEnumerable<LapLich.Models.Doctor>
+
+@{
+    ViewBag.Title = "ListDoctors";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mx-auto mt-4">
+    <div class="list-group">
+        @foreach (var item in Model)
+        {
+            <a href="@Url.Action("DaysOff", "Admin", new { doctorId = item.DoctorID })" class="list-group-item list-group-item-action">
+                @Html.DisplayFor(modelItem => item.DoctorName)
+            </a>
+        }
+    </div>
+</div>

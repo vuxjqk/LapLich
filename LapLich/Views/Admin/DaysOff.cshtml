@@ -12,7 +12,7 @@
     var doctor = ViewBag.Doctor as Doctor;
 }
 
-<div class="flex items-center space-x-2">
+<div class="w-50 m-auto flex items-center space-x-2">
     @{
         int index = doctor.DoctorID;
 
@@ -66,5 +66,7 @@
             }
         </div>
         <button type="submit" class="bg-blue-600 text-white rounded p-2 hover:bg-blue-700 transition mt-4">Lưu Ngày Nghỉ</button>
+
+        <a class="btn btn-secondary ms-5" href="/Admin/ListDoctors">Quay lại</a>
     </form>
 </div>

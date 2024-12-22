@@ -73,7 +73,7 @@ namespace LapLich.Controllers
             return RedirectToAction("DoctorSchedule");
         }
 
-        public ActionResult DaysOff(int doctorId = 1)
+        public ActionResult DaysOff(int doctorId)
         {
             ViewBag.Doctor = CSVReader.ReadDoctors().Find(d => d.DoctorID == doctorId);
             ViewBag.Days = CSVReader.ReadDays();
@@ -93,6 +93,12 @@ namespace LapLich.Controllers
                 CSVReader.WriteDoctorsToCsv(doctors);
             }
             return RedirectToAction("DaysOff", "Admin", new { doctorId = doctorId });
+        }
+
+        public ActionResult ListDoctors()
+        {
+            var doctors = CSVReader.ReadDoctors();
+            return View(doctors);
         }
     }
 }

@@ -73,6 +73,17 @@ namespace LapLich.Models
             return population;
         }
 
+        /*
+        Ràng buộc cứng
+        - Không xếp bác sĩ nghỉ phép, công tác phải trực
+        - Mỗi bác sĩ chỉ được phép làm việc ở một số phòng nhất định
+        - Tại một thời điểm, một bác sĩ không được phép trực nhiều phòng
+        - Mỗi ngày, mỗi phòng đều phải có một bác sĩ trực
+
+        Ràng buộc mềm
+        - Khoảng cách giữa 2 lần trực của bác sĩ càng xa nhau càng tốt
+        - Tổng thời gian trực của các bác sĩ phải tương đương nhau
+        */
         public int Fitness(List<Schedule> individual)
         {
             int violations = 0; // Vi phạm
@@ -104,29 +115,33 @@ namespace LapLich.Models
             }
 
             // Khoảng cách giữa 2 lần trực của bác sĩ càng xa nhau càng tốt
-            foreach (var doctorGroup in individual.GroupBy(s => s.Doctor))
+            int daysInMonth = DateTime.DaysInMonth(individual[0].Day.Date.Year, individual[0].Day.Date.Month);
+            foreach (var doctorSchedules in individual.GroupBy(s => s.Doctor))
             {
-                var sortedSchedules = doctorGroup.OrderBy(s => s.Day.Date).ToList();
+                var sortedSchedules = doctorSchedules.OrderBy(s => s.Day.Date).ToList();
                 for (int i = 1; i < sortedSchedules.Count; i++)
                 {
-                    var dayDifference = sortedSchedules[i].Day.DayID - sortedSchedules[i - 1].Day.DayID;
-                    int daysInMonth = DateTime.DaysInMonth(sortedSchedules[i].Day.Date.Year, sortedSchedules[i].Day.Date.Month);
-                    violations += Convert.ToInt32(daysInMonth / (dayDifference != 0 ? dayDifference : 1));
+                    int dayDifference = sortedSchedules[i].Day.DayID - sortedSchedules[i - 1].Day.DayID;
+                    if (dayDifference > 0)
+                    {
+                        violations += daysInMonth - dayDifference;
+                    }
+                    else
+                    {
+                        violations += 1000;
+                    }
                 }
 
                 // Đếm số lần trực của bác sĩ
-                foreach (var schedule in doctorGroup)
-                {
-                    if (!doctorWorkCount.ContainsKey(schedule.Doctor.DoctorID))
-                        doctorWorkCount[schedule.Doctor.DoctorID] = 0;
-                    doctorWorkCount[schedule.Doctor.DoctorID]++;
-                }
+                doctorWorkCount[doctorSchedules.Key.DoctorID] = sortedSchedules.Count;
             }
 
             // Tổng thời gian trực của các bác sĩ phải tương đương nhau
-            int avgWorkTime = Convert.ToInt32(doctorWorkCount.Values.Average());
-            foreach (var doctor in doctorWorkCount)
-                violations += Math.Abs(doctor.Value - avgWorkTime);
+            int avgWorkCount = (int)doctorWorkCount.Values.Average();
+            foreach (var workCount in doctorWorkCount.Values)
+            {
+                violations += Math.Abs(workCount - avgWorkCount);
+            }
 
             return violations;
         }
@@ -173,12 +188,6 @@ namespace LapLich.Models
             {
                 var fitnessValues = population.Select(individual => Fitness(individual)).ToList();
                 Debug.WriteLine($"Generation {generation + 1}: Best Fitness = {fitnessValues.Min()}");
-
-                if (fitnessValues.Min() == 0)
-                {
-                    Debug.WriteLine("Optimal solution found!");
-                    break;
-                }
 
                 population = Selection(population);
                 var offspring = new List<List<Schedule>>();
