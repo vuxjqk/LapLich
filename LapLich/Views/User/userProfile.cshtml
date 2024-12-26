@@ -1,5 +1,4 @@
-﻿@model LapLich.Models.Doctor
-@using LapLich.Models;
+﻿@model LapLich.Models.User
 
 @{
     ViewBag.Title = "userProfile";
@@ -134,40 +133,37 @@
     }
 </style>
 
-<h1 class="welcome-text">Xin chào, @Model.DoctorName!</h1>
+<h1 class="welcome-text">Xin chào, @Model.Doctor.DoctorName!</h1>
 
 <div class="container">
     <h2 class="subtitle">Thông tin cá nhân</h2>
 
     <div class="profile-info">
-        <img src="https://image.pngaaa.com/321/1856321-middle.png" alt="Avatar of @Model.DoctorName">
+        <img src="https://image.pngaaa.com/321/1856321-middle.png" alt="Avatar of @Model.Doctor.DoctorName">
         <div class="profile-details">
             <h3>ID Bác sĩ:</h3>
-            <p>@Model.DoctorID</p>
+            <p>@Model.UserID</p>
             <h3>Họ và tên:</h3>
-            <p>@Model.DoctorName</p>
+            <p>@Model.Doctor.DoctorName</p>
             <h3>Trực các phòng:</h3>
             <p>
-                @foreach (var item in Model.AllowedRooms)
+                @foreach (var item in Model.Doctor.AllowedRooms)
                 {
                     <span>@item.RoomName,</span>
                 }
             </p>
             <h3>Các ngày nghỉ:</h3>
             <p>
-                @foreach (var item in Model.DaysOff)
+                @foreach (var item in Model.Doctor.DaysOff)
                 {
                     <span>@item.Date.ToString("dd/MM/yyyy"),</span>
                 }
             </p>
-            @{
-                var user = Session["User"] as User;
-            }
             <h3>Tài khoản:</h3>
-            <p>@user.UserName</p>
+            <p>@Model.UserName</p>
             <h3>Mật khẩu:</h3>
-            <p id="password-@user.UserID" style="display: none;">@user.Password</p>
-            <span class="toggle-password" onclick="togglePassword(@user.UserID)">
+            <p id="password-@Model.UserID" style="display: none;">@Model.Password</p>
+            <span class="toggle-password" onclick="togglePassword(@Model.UserID)">
                 <i class="fas fa-eye"></i>
             </span>
         </div>

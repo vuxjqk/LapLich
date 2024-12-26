@@ -1,19 +1,14 @@
-﻿@using LapLich.Models
+﻿@model IEnumerable<LapLich.Models.Day>
+@using LapLich.Models
+
 @{
     ViewBag.Title = "DaysOff";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-@{
-    ViewBag.Title = "Chọn Ngày Nghỉ Của Bác Sĩ";
-}
-
-@{
-    var doctor = ViewBag.Doctor as Doctor;
-}
-
 <div class="w-50 m-auto flex items-center space-x-2">
     @{
+        var doctor = ViewBag.Doctor as Doctor;
         int index = doctor.DoctorID;
 
         // Nút Trở về
@@ -51,17 +46,14 @@
 <div class="w-50 m-auto">
     <form class="form-check" action="@Url.Action("SaveDaysOff")" method="post">
         <input type="hidden" name="doctorId" value="@doctor.DoctorID" />
-
-        @{
-            var days = ViewBag.Days as List<Day>;
-        }
-        <p class="badge bg-danger">Chọn ngày nghỉ cho tháng @days[0].Date.ToString("MM/yyyy")</p>
+        <p class="badge bg-danger">Chọn ngày nghỉ cho tháng @Model.First().Date.ToString("MM/yyyy")</p>
         <div class="row row-cols-5">
-            @foreach (var day in days)
+            @foreach (var item in Model)
             {
                 <div class="col my-1">
-                    <input class="form-check-input" id="@day.DayID" type="checkbox" name="selectedDays" value="@day.DayID" />
-                    <label class="form-check-label" for="@day.DayID">@day.DayID</label>
+                    <input class="form-check-input" id="@item.DayID" type="checkbox" name="selectedDays" value="@item.DayID"
+                           @(doctor.DaysOff.Contains(item) ? "checked" : "") />
+                    <label class="form-check-label" for="@item.DayID">@item.DayID</label>
                 </div>
             }
         </div>

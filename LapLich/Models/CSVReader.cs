@@ -94,13 +94,13 @@ namespace LapLich.Models
         {
             string filePath = file + "schedule.csv";
             var schedule = new List<Schedule>();
+            var rooms = ReadRooms();
+            var days = ReadDays();
+            var doctors = ReadDoctors();
+
             using (var reader = new StreamReader(filePath, Encoding.UTF8))
             using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = true }))
             {
-                var rooms = ReadRooms();
-                var days = ReadDays();
-                var doctors = ReadDoctors();
-
                 var records = csv.GetRecords<dynamic>();
                 foreach (var record in records)
                 {
@@ -122,6 +122,8 @@ namespace LapLich.Models
         {
             string filePath = file + "user.csv";
             var users = new List<User>();
+            var doctors = ReadDoctors();
+
             using (var reader = new StreamReader(filePath, Encoding.UTF8))
             using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = true }))
             {
@@ -132,7 +134,10 @@ namespace LapLich.Models
                     string UserName = record.UserName;
                     string Password = record.Password;
                     string Role = record.Role;
-                    users.Add(new User(UserID, UserName, Password, Role));
+
+                    var Doctor = doctors.Find(d => d.DoctorID == UserID);
+
+                    users.Add(new User(UserID, UserName, Password, Role, Doctor));
                 }
             }
             return users;

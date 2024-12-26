@@ -185,13 +185,10 @@
             <hr class="my-2">
             <nav class="element-navbar pt-4">
                 <div>
-                    @{
-                        var UserID = Session["UserID"];
-                    }
-                    <i class="mr-3 fa-solid fa-user"></i><a href="/User/userProfile/@UserID">Hồ Sơ</a>
+                    <i class="mr-3 fa-solid fa-user"></i><a href="/User/userProfile/@Session["UserID"]">Hồ Sơ</a>
                 </div>
                 <div>
-                    <i class="mr-3 fa-solid fa-calendar"></i><a href="/User/Index/@UserID">Lịch làm việc</a>
+                    <i class="mr-3 fa-solid fa-calendar"></i><a href="/User/Index/@Session["UserID"]">Lịch làm việc</a>
                 </div>
                 <div>
                     <i class="mr-3 fa-solid fa-hospital"></i><a href="">Thông Báo</a>

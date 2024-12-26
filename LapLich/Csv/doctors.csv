@@ -1,5 +1,5 @@
 ﻿DoctorID,DoctorName,AllowedRooms,DaysOff
-1,Dr. Đặng Bá Đức,1 2 3,1 31
+1,Dr. Đặng Bá Đức,1 2 3,
 2,Dr. Trần Minh Tâm,4 5,
 3,Dr. Nguyễn Tiến Duy,6 7,
 4,Dr. Lê Thị Mai,8 9,
@@ -18,7 +18,7 @@
 17,Dr. Võ Quốc Tuấn,4 5,
 18,Dr. Mai Thành An,6 7,
 19,Dr. Nguyễn Phương Anh,8 9,
-20,Dr. Phạm Hữu Kiệt,10,17 18
+20,Dr. Phạm Hữu Kiệt,10,
 21,Dr. Trương Quốc Hậu,1 2 3,
 22,Dr. Vũ Minh Khoa,4 5,
 23,Dr. Hoàng Minh Trung,6 7,
@@ -27,5 +27,5 @@
 26,Dr. Ngô Minh Thành,1 2 3,
 27,Dr. Dương Thanh Tùng,4 5,
 28,Dr. Mạc Đình Lâm,6 7,
-29,Dr. Lý Thanh Bình,8 9,5 11 30
+29,Dr. Lý Thanh Bình,8 9,
 30,Dr. Châu Quang Thiên,10,

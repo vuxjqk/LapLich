@@ -1,37 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\LapLich\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{4112B914-898E-4000-87AE-F79D676C5E1E}|LapLich\\LapLich.csproj|d:\\laplich\\laplich\\models\\geneticalgorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4112B914-898E-4000-87AE-F79D676C5E1E}|LapLich\\LapLich.csproj|solutionrelative:laplich\\models\\geneticalgorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "GeneticAlgorithm.cs",
-              "DocumentMoniker": "D:\\LapLich\\LapLich\\Models\\GeneticAlgorithm.cs",
-              "RelativeDocumentMoniker": "LapLich\\Models\\GeneticAlgorithm.cs",
-              "ToolTip": "D:\\LapLich\\LapLich\\Models\\GeneticAlgorithm.cs",
-              "RelativeToolTip": "LapLich\\Models\\GeneticAlgorithm.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAIAwwF8AAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-22T14:52:34.997Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

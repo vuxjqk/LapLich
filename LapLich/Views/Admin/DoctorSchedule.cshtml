@@ -9,8 +9,8 @@
 <!-- Điều chỉnh tiêu đề và thông tin tuần/tháng -->
 <div class="flex justify-between items-center mb-4 mt-4">
     <div>
-        Lập lịch cho tháng <span style="color: red; font-weight: bold">@ViewBag._Month/@ViewBag._Year</span>
-        <a class="bg-blue-600 text-white rounded p-2 hover:bg-blue-700 transition" href="/Admin/_DoctorSchedule">Run</a>
+        Lập lịch cho tháng <span style="color: red; font-weight: bold">@ViewBag.Month/@ViewBag.Year</span>
+        <a class="bg-blue-600 text-white rounded p-2 hover:bg-blue-700 transition" href="/Admin/RunDoctorSchedule">Run</a>
     </div>
 
     <div>
@@ -101,12 +101,10 @@
                                 if (day == i)
                                 {
                                     <div class="p-2 border border-gray-300 bg-green-200 rounded-md">
-                                        @{ 
-                                            Session["UserID"] = item.Doctor.DoctorID;
-                                            var users = CSVReader.ReadUsers();
-                                            Session["User"] = users.Find(u => u.UserID == item.Doctor.DoctorID);
-                                        }
-                                        <a class="text-sm font-semibold text-gray-800" href="/User/Index/@item.Doctor.DoctorID" target="_blank">@item.Doctor.DoctorName</a>
+                                        <a class="text-sm font-semibold text-gray-800" href="@Url.Action("Index", "User", new { id = item.Doctor.DoctorID })" target="_blank">
+                                            @item.Doctor.DoctorID -
+                                            @item.Doctor.DoctorName
+                                        </a>
                                     </div>
                                 }
                                 else

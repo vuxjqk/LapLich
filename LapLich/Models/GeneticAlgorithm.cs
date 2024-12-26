@@ -18,7 +18,7 @@ namespace LapLich.Models
         Random random;
 
         public GeneticAlgorithm(List<Doctor> doctors, List<Room> rooms, List<Day> days,
-                                int populationSize = 200, int generations = 2000, double mutpb = 0.2, double cxpb = 0.7)
+                                int populationSize = 200, int generations = 2000, double cxpb = 0.7, double mutpb = 0.2)
         {
             this.doctors = doctors;
             this.rooms = rooms;
@@ -89,6 +89,7 @@ namespace LapLich.Models
             int violations = 0; // Vi phạm
             var doctorWorkCount = new Dictionary<int, int>();
             var doctorsAssignedToday = new Dictionary<int, HashSet<Day>>();
+            int daysInMonth = DateTime.DaysInMonth(individual[0].Day.Date.Year, individual[0].Day.Date.Month);
 
             foreach (var schedule in individual)
             {
@@ -115,7 +116,6 @@ namespace LapLich.Models
             }
 
             // Khoảng cách giữa 2 lần trực của bác sĩ càng xa nhau càng tốt
-            int daysInMonth = DateTime.DaysInMonth(individual[0].Day.Date.Year, individual[0].Day.Date.Month);
             foreach (var doctorSchedules in individual.GroupBy(s => s.Doctor))
             {
                 var sortedSchedules = doctorSchedules.OrderBy(s => s.Day.Date).ToList();
@@ -124,7 +124,7 @@ namespace LapLich.Models
                     int dayDifference = sortedSchedules[i].Day.DayID - sortedSchedules[i - 1].Day.DayID;
                     if (dayDifference > 0)
                     {
-                        violations += daysInMonth - dayDifference;
+                        violations += daysInMonth / dayDifference;
                     }
                     else
                     {

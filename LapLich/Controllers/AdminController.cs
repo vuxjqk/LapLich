@@ -34,50 +34,49 @@ namespace LapLich.Controllers
             var doctors = CSVReader.ReadDoctors();
             foreach (var dortor in doctors)
                 dortor.DaysOff = new List<Day>();
-
             CSVReader.WriteDoctorsToCsv(doctors);
+
             CSVReader.WriteScheduleToCsv(new List<Schedule>());
             return View();
         }
 
         public ActionResult DoctorSchedule(int weekIndex = 1)
         {
-            var days = CSVReader.ReadDays();
-            ViewBag._Year = days[0].Date.Year;
-            ViewBag._Month = days[0].Date.Month;
-
             var schedule = CSVReader.ReadSchedule();
-            var date = days[0].Date;
-
-            ViewBag.Year = date.Year;
-            ViewBag.Month = date.Month;
-            ViewBag.Week = weekIndex;
-            ViewBag.LastWeek = Program.GetWeeksInMonth(date);
-
-            // Lọc lịch bác sĩ cho tuần tương ứng
+            var date = CSVReader.ReadDays()[0].Date;
             var startOfWeek = Program.GetStartOfWeek(date, weekIndex);
-            ViewBag.StartOfWeek = startOfWeek;
-
             var endOfWeek = startOfWeek.AddDays(6);
+
             var doctorScheduleForWeek = schedule
                 .Where(s => s.Day.Date >= startOfWeek && s.Day.Date <= endOfWeek)
                 .OrderBy(s => s.Day.Date)
                 .ToList();
 
+            ViewBag.Year = date.Year;
+            ViewBag.Month = date.Month;
+            ViewBag.Week = weekIndex;
+            ViewBag.StartOfWeek = startOfWeek;
+            ViewBag.LastWeek = Program.GetWeeksInMonth(date);
+
             return View(doctorScheduleForWeek);
         }
 
-        public ActionResult _DoctorSchedule()
+        public ActionResult RunDoctorSchedule()
         {
             Program.Main();
             return RedirectToAction("DoctorSchedule");
         }
 
+        public ActionResult ListDoctors()
+        {
+            var doctors = CSVReader.ReadDoctors();
+            return View(doctors);
+        }
+
         public ActionResult DaysOff(int doctorId)
         {
             ViewBag.Doctor = CSVReader.ReadDoctors().Find(d => d.DoctorID == doctorId);
-            ViewBag.Days = CSVReader.ReadDays();
-            return View();
+            return View(CSVReader.ReadDays());
         }
 
         [HttpPost]
@@ -93,12 +92,6 @@ namespace LapLich.Controllers
                 CSVReader.WriteDoctorsToCsv(doctors);
             }
             return RedirectToAction("DaysOff", "Admin", new { doctorId = doctorId });
-        }
-
-        public ActionResult ListDoctors()
-        {
-            var doctors = CSVReader.ReadDoctors();
-            return View(doctors);
         }
     }
 }

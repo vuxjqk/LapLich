@@ -13,32 +13,30 @@ namespace LapLich.Controllers
         public ActionResult Index(int id, int weekIndex = 1)
         {
             var schedule = CSVReader.ReadSchedule();
-            var doctor = schedule.Find(s => s.Doctor.DoctorID == id).Doctor;
-            ViewBag.Name = doctor.DoctorName;
-
-            var date = schedule[0].Day.Date;
-            ViewBag.Year = date.Year;
-            ViewBag.Month = date.Month;
-            ViewBag.Week = weekIndex;
-            ViewBag.LastWeek = Program.GetWeeksInMonth(date);
-
-            // Lọc lịch bác sĩ cho tuần tương ứng
+            var date = CSVReader.ReadDays()[0].Date;
             var startOfWeek = Program.GetStartOfWeek(date, weekIndex);
             var endOfWeek = startOfWeek.AddDays(6);
+
             var doctorScheduleForWeek = schedule
                 .Where(s => s.Doctor.DoctorID == id && s.Day.Date >= startOfWeek && s.Day.Date <= endOfWeek)
                 .OrderBy(s => s.Day.Date)
                 .ToList();
 
+            ViewBag.Year = date.Year;
+            ViewBag.Month = date.Month;
+            ViewBag.Week = weekIndex;
+            ViewBag.LastWeek = Program.GetWeeksInMonth(date);
+            ViewBag.Name = CSVReader.ReadDoctors().Find(d => d.DoctorID == id).DoctorName;
+
             return View(doctorScheduleForWeek);
         }
 
-        public ActionResult userProfile(int id)
+        public ActionResult userProfile(int id = -1)
         {
-            var doctor = CSVReader.ReadDoctors().SingleOrDefault(d => d.DoctorID == id);
-            var users = CSVReader.ReadUsers();
-            ViewBag.User = users.Find(u => u.UserID == doctor.DoctorID);
-            return View(doctor);
+            var user = CSVReader.ReadUsers().SingleOrDefault(u => u.UserID == id);
+            if (user == null)
+                return HttpNotFound();
+            return View(user);
         }
     }
 }

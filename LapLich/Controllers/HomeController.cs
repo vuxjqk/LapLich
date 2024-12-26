@@ -47,7 +47,6 @@ namespace LapLich.Controllers
                 else
                 {
                     Session["UserID"] = user.UserID;
-                    Session["User"] = user;
                     return RedirectToAction("Index", "User", new { id = user.UserID });
                 }
             }
@@ -57,7 +56,6 @@ namespace LapLich.Controllers
         public ActionResult Logout()
         {
             Session["UserID"] = null;
-            Session["User"] = null;
             return RedirectToAction("Index");
         }
     }
